@@ -1,7 +1,9 @@
 package com.pratik.ecommerce.controller;
 
+import com.pratik.ecommerce.dto.UserRequestDto;
 import com.pratik.ecommerce.entity.User;
 import com.pratik.ecommerce.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,18 +16,10 @@ public class UserController {
         this.service = service;
     }
 
-    @PostMapping
-    public User createUser(@RequestBody User user) {
-        return service.saveUser(user);
-    }
+    @PostMapping("/register")
+    public User register(
+            @Valid @RequestBody UserRequestDto dto) {
 
-    @GetMapping("/{Id}")
-    public String getUser(@PathVariable Long Id) {
-        return "User Id: " +Id;
-    }
-
-    @GetMapping("/search")
-    public String search(@RequestParam String email) {
-        return email;
+        return service.register(dto);
     }
 }
